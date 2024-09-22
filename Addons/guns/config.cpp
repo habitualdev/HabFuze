@@ -20,3 +20,6 @@
 #include "CfgVehicles.hpp"
 #include "CfgFunctions.hpp"
 #include "CfgAmmo.hpp"
+#include "CfgMagazines.hpp"
+#include "CfgWeapons.hpp"
+#include "CfgCloudlets.hpp"

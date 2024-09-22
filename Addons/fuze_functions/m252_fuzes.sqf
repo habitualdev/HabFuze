@@ -1,3 +1,19 @@
+	fn_HabFuze_WP_81_smoke = {
+            private ["_smokegen", "_smokegen2", "_pos", "_pos2"];
+
+            if (!hasinterface) exitwith {};
+
+            _pos = [(_this select 0), _this select 1, 0];
+            _pos2 = [((_this select 0)+5), _this select 1, 0];
+
+            _smokegen = "#particlesource" createvehicle _pos;
+            _smokegen setPosATL _pos;
+            _smokegen setParticleClass "HabFuze_WPLinger_81";
+
+            sleep 45.0;
+            deletevehicle _smokegen;
+        };
+
 	thisgun = _this select 0;
 	private _gunName = getObjectID thisgun;
 	explosionType = "Sh_82mm_AMOS";

@@ -51,8 +51,9 @@ class CfgVehicles {
 		scopeCurator = 2;
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {
+			weapons[] = {"habfuze_weap_m284"};
 				magazines[] = {
-					rhs_mag_155mm_m795_28, rhs_mag_155mm_m825a1_2, rhs_mag_155mm_485_2, rhs_mag_155mm_m712_2, rhs_mag_155mm_m731_1, rhs_mag_155mm_raams_1, rhs_mag_155mm_m864_3
+					"rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP"
 				};
 				lockWhenVehicleSpeed= 5;
 				maxHorizontalRotSpeed = "((360/30)/45)";
@@ -76,8 +77,9 @@ class CfgVehicles {
 		scopeCurator = 2;
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {
+			weapons[] = {"habfuze_weap_m284"};
 				magazines[] = {
-					rhs_mag_155mm_m795_28, rhs_mag_155mm_m825a1_2, rhs_mag_155mm_485_2, rhs_mag_155mm_m712_2, rhs_mag_155mm_m731_1, rhs_mag_155mm_raams_1, rhs_mag_155mm_m864_3
+					"rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP"
 				};
 				lockWhenVehicleSpeed= 5;
 				maxHorizontalRotSpeed = "((360/30)/45)";
@@ -148,8 +150,13 @@ class CfgVehicles {
 		class EventHandlers {
 			init = "_this call HAB_FUZE_fnc_init_m252_fuzes"
 		};
+		class Turrets: Turrets {
+            class MainTurret: MainTurret {
+                weapons[] = {"habfuze_mortar_81mm"};
+                magazines[] = {"rhs_12Rnd_m821_HE", "habfuze_81mm_12Rnd_WP"};
 	};
-	
+	};
+    };
 	// Naval Gun
 	
 	class StaticMGWeapon: StaticWeapon {

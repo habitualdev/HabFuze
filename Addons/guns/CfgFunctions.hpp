@@ -20,6 +20,7 @@ class CfgFunctions
             {
             	file="habfuze\AddOns\fuze_functions\230mmrocket_fuzes.sqf";
             };
+
         };
     };
 };
