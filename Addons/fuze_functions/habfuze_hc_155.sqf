@@ -1,0 +1,1 @@
+_this spawn fn_HabFuze_HC_155_smoke;

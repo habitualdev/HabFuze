@@ -1,4 +1,4 @@
-	fn_HabFuze_WP_155_smoke = {
+	fn_HabFuze_WP_81_smoke = {
             private ["_smokegen", "_smokegen2", "_pos", "_pos2"];
 
             if (!hasinterface) exitwith {};
@@ -8,34 +8,18 @@
 
             _smokegen = "#particlesource" createvehicle _pos;
             _smokegen setPosATL _pos;
-            _smokegen setParticleClass "HabFuze_WPLinger_155";
+            _smokegen setParticleClass "HabFuze_WPLinger_81";
 
-            sleep 75.0;
+            sleep 45.0;
             deletevehicle _smokegen;
         };
-
-    fn_HabFuze_HC_155_smoke = {
-                private ["_smokegen", "_smokegen2", "_pos", "_pos2"];
-
-                if (!hasinterface) exitwith {};
-
-                _pos = [(_this select 0), _this select 1, 0];
-                _pos2 = [((_this select 0)+5), _this select 1, 0];
-
-                _smokegen = "#particlesource" createvehicle _pos;
-                _smokegen setPosATL _pos;
-                _smokegen setParticleClass "HabFuze_HCLinger_155";
-
-                sleep 75.0;
-                deletevehicle _smokegen;
-            };
 
 	thisgun = _this select 0;
 	private _gunName = getObjectID thisgun;
 	explosionType = "Sh_155mm_AMOS";
-	
+
 	missionNamespace setVariable [_gunName,["IMPACT",1.0],true];
-	
+
 	thisgun addAction ["Edit Fuze Settings", {
 		disableSerialization;
 		private _thisObject = _this select 0;
@@ -54,17 +38,17 @@
 		_ctrlGroup ctrlCommit 0;
 		_ctrlBackground ctrlSetPosition [0, 0, 0.5, 0.3];
 		_ctrlBackground ctrlSetBackgroundColor [0.5, 0.5, 0.5, 0.9];
-		
+
 		private _fuzeMod = _fuze select 1;
 		private _fuzeType = _fuze select 0;
-		
+
 		_ctrlBackground ctrlSetText str _fuzeMod + "|" + _fuzeType;
 		_ctrlBackground ctrlEnable false;
 		_ctrlBackground ctrlCommit 0;
 		_ctrlEdit ctrlSetPosition [0.01, 0.05, 0.48, 0.1];
 		_ctrlEdit ctrlSetBackgroundColor [0, 0, 0, 0.5];
 		_ctrlEdit ctrlCommit 0;
-		
+
 		_impactButton ctrlSetPosition [0.05, 0.21, 0.13, 0.05];
 		_impactButton ctrlCommit 0;
 		_impactButton ctrlSetText "IMPACT";
@@ -75,10 +59,10 @@
 			_text = ctrlText (_display displayCtrl IDD_EDIT_BOX);
 			if (_text == "") then { _text = "10.0" };
 			missionNamespace setVariable [gunName,["IMPACT", parseNumber _text],true];
-		
+
 			_display closeDisplay 1;
 		}];
-		
+
 		_proxButton ctrlSetPosition [0.19, 0.21, 0.13, 0.05];
 		_proxButton ctrlCommit 0;
 		_proxButton ctrlSetText "PROX";
@@ -89,10 +73,10 @@
 			_text = ctrlText (_display displayCtrl IDD_EDIT_BOX);
 			if (_text == "") then { _text = "10.0" };
 			missionNamespace setVariable [gunName,["PROX", parseNumber _text],true];
-			
+
 			_display closeDisplay 1;
 		}];
-		
+
 		_timedButton ctrlSetPosition [0.33, 0.21, 0.13, 0.05];
 		_timedButton ctrlCommit 0;
 		_timedButton ctrlSetText "TIMED";
@@ -102,22 +86,22 @@
 			_display = ctrlParent _ctrl;
 			_text = ctrlText (_display displayCtrl IDD_EDIT_BOX);
 			if (_text == "") then { _text = "10.0" };
-			
+
 			missionNamespace setVariable [gunName,["TIMED", parseNumber _text],true];
-		
-			
+
+
 			_display closeDisplay 1;
 		}];
-		
+
 		ctrlSetFocus _ctrlEdit;
 		_ctrlGroup ctrlSetPosition [0.25, 0.25, 0.5, 0.5];
 		_ctrlGroup ctrlCommit 0.1;
 		playSound "Hint3";
 	}];
-	
-	
-	
-	thisgun addEventHandler ["Fired", 
+
+
+
+	thisgun addEventHandler ["Fired",
 	{_this spawn {
 			private _thisObject = _this select 0;
 			gunName = getObjectID _thisObject;
@@ -134,59 +118,34 @@
 	                private _distance = _shellPos distance _gunPosition;
 	                _distance > 100;
 	            };
-	
+
 	            while {alive _shell} do {
 	                private _shellPos = getPos _shell;
 	                private _shellGroundAlt = getPosATL _shell select 2;
-	
+
 	                if (_shellGroundAlt <= _proxDistance) then {
 	                    _explosion = _explosionType createVehicle _shellPos;
-	                    "habfuze_155mm" createVehicle _shellPos;
+	                    "habfuze_105mm" createVehicle _shellPos;
 	                    deleteVehicle _shell;
 	                    deleteVehicle _explosion;
 	                };
-	
+
 	                sleep 0.01;
 	            };
 	        };
-	        
+
 	        if (_fuze select 0 isEqualTo "TIMED") then {
 	        	private _shell = _this select 6;
-	        	
+
 				private _proxDistance = _fuze select 1;
 				sleep _proxDistance;
 				 private _shellPos = getPos _shell;
 				_explosion = explosionType createVehicle _shellPos;
-	            "habfuze_155mm" createVehicle _shellPos;
+	            "habfuze_105mm" createVehicle _shellPos;
 	            deleteVehicle _shell;
 	            deleteVehicle _explosion;
-	        
-	        };
-	        
-	    };}];
-	    thisgun addEventHandler ["Fired", {
-                    _ammo = _this select 4;
-                    if ( _ammo == "habfuze_155mm_m712") then {
-                    _mode = _this select 3;
-                    _projectile = _this select 6;
-                    switch (_mode) do {
-                        case "Single1": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .19);
-                        };
-                        case "Single2": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .3);
-                        };
-                        case "Single3": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .48);
-                        };
-                        case "Single4": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .8);
-                        };
-                        case "Single5": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply 1);
-                        };
 
-                    };
-                    };
-                }];
+	        };
+
+	    };}];
 

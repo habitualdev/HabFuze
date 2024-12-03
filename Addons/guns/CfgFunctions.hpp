@@ -20,6 +20,18 @@ class CfgFunctions
             {
             	file="habfuze\AddOns\fuze_functions\230mmrocket_fuzes.sqf";
             };
+            class init_m119_fuzes
+            {
+                file="habfuze\AddOns\fuze_functions\m119_fuzes.sqf";
+            };
+            class init_3km_radar
+            {
+                file="habfuze\AddOns\fuze_functions\3km_radar.sqf";
+            };
+            class init_10km_radar
+            {
+                file="habfuze\AddOns\fuze_functions\10km_radar.sqf";
+            };
 
         };
     };

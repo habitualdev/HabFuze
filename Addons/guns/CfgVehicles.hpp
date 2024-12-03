@@ -51,9 +51,10 @@ class CfgVehicles {
 		scopeCurator = 2;
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {
+			ace_fcs_Enabled = 1;
 			weapons[] = {"habfuze_weap_m284"};
 				magazines[] = {
-					"rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP"
+					"habfuze_16Rnd_155mm_M712", "rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP"
 				};
 				lockWhenVehicleSpeed= 5;
 				maxHorizontalRotSpeed = "((360/30)/45)";
@@ -77,9 +78,10 @@ class CfgVehicles {
 		scopeCurator = 2;
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {
+			ace_fcs_Enabled = 1;
 			weapons[] = {"habfuze_weap_m284"};
 				magazines[] = {
-					"rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP"
+					"habfuze_16Rnd_155mm_M712", "rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP", "habfuze_32Rnd_155mm_HC"
 				};
 				lockWhenVehicleSpeed= 5;
 				maxHorizontalRotSpeed = "((360/30)/45)";
@@ -136,6 +138,16 @@ class CfgVehicles {
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {};
 		};
+		class ace_csw {
+                    enabled=1;
+                    magazineLocation = "_target selectionPosition 'zbytek'";
+                    proxyWeapon = "habfuze_mortar_81mm_proxy";
+                    ammoLoadTime = 3;
+                    ammoUnloadTime = 3;
+                    desiredAmmo = 1;
+                    disassembleTurret = "ace_csw_mortarBaseplate";
+                    disassembleWeapon = "habfuze_mortar_81_carry";
+        		};
 	};
 	class hab_fuze_rhsusf_m252_d: RHS_M252_D {
 		displayname = "M252 VT Fuze";
@@ -148,12 +160,12 @@ class CfgVehicles {
 			displayName = "";
 		};
 		class EventHandlers {
-			init = "_this call HAB_FUZE_fnc_init_m252_fuzes"
+			init = "_this select 0 call ace_csw_fnc_initVehicle; _this call HAB_FUZE_fnc_init_m252_fuzes"
 		};
 		class Turrets: Turrets {
             class MainTurret: MainTurret {
                 weapons[] = {"habfuze_mortar_81mm"};
-                magazines[] = {"rhs_12Rnd_m821_HE", "habfuze_81mm_12Rnd_WP"};
+                magazines[] = {};
 	};
 	};
     };
@@ -187,6 +199,60 @@ class CfgVehicles {
 			init = "_this call HAB_FUZE_fnc_init_naval_fuzes"
 		};
 	};
-	
+
+	// M119
+    class StaticCannon: StaticWeapon {
+        class Turrets: Turrets {
+            class MainTurret: MainTurret {};
+        };
+    };
+
+    class RHS_M119_Base: StaticCannon {
+        class Turrets: Turrets {
+            class MainTurret: MainTurret {};
+        };
+    };
+
+    class RHS_M119_WD: RHS_M119_Base {
+        class Turrets: Turrets {
+            class MainTurret: MainTurret {};
+        };
+    };
+
+    class hab_fuze_M119_WD: RHS_M119_WD {
+        displayname = "M119 VT Fuze";
+        scopeCurator = 2;
+        class EventHandlers {
+            init = "_this call HAB_FUZE_fnc_init_m119_fuzes"
+        };
+        class Turrets: Turrets {
+            class MainTurret: MainTurret {
+                weapons[] = {"habfuze_weap_M119"};
+                magazines[] = {"RHS_mag_m1_he_12", "habfuze_105mm_smoke_12Rnd", "rhs_mag_m314_ilum_4"};
+            };
+        };
+    };
+
+    // CB Radar - 5KM
+    class rhsgref_serhat_radar_d;
+    class habfuze_3km_radar: rhsgref_serhat_radar_d {
+        scope = 2;
+        author = "habitual";
+        displayName = "CB Radar (3KM)";
+        scopeCurator = 2
+        class EventHandlers {
+            init = "_this call HAB_FUZE_fnc_init_3km_radar"
+        };
+    };
+    class rhs_prv13;
+    class habfuze_10km_radar: rhs_prv13 {
+        scope = 2;
+        author = "habitual";
+        displayName = "CB Radar (10KM)";
+        scopeCurator = 2
+        class EventHandlers {
+            init = "_this call HAB_FUZE_fnc_init_10km_radar"
+        };
+    };
 
 };

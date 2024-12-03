@@ -1,0 +1,1 @@
+_this spawn fn_HabFuzey_WP_81_smoke;
