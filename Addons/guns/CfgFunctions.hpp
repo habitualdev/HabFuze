@@ -32,6 +32,10 @@ class CfgFunctions
             {
                 file="habfuze\AddOns\fuze_functions\10km_radar.sqf";
             };
+            class init_vls
+            {
+                file="habfuze\AddOns\fuze_functions\vls.sqf";
+            };
 
         };
     };

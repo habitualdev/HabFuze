@@ -254,5 +254,15 @@ class CfgVehicles {
             init = "_this call HAB_FUZE_fnc_init_10km_radar"
         };
     };
+    class B_Ship_MRLS_01_F;
+    class habfuze_VLS: B_Ship_MRLS_01_F {
+        scope = 2;
+        author = "habitual";
+        displayName = "VLS (GPS)";
+        scopeCurator = 2;
+        class EventHandlers {
+            init = "_this call HAB_FUZE_fnc_init_vls"
+        };
+    };
 
 };

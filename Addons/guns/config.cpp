@@ -47,6 +47,14 @@
         author = "habitual";
         authors[] = {"habitual"};
     };
+    class habfuze_vls {
+        units[] = {"habfuze_VLS"};
+        weapons[] = {};
+        requiredVersion = 1.8;
+        requiredAddons[] = {"rhsusf_main", "rhsusf_c_troops"};
+        author = "habitual";
+        authors[] = {"habitual"};
+    };
 };
 
 
