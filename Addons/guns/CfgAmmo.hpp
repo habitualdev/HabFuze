@@ -79,6 +79,20 @@ class CfgAmmo{
                 };
 
 
+    class habfuze_155mm_m712_launch: Sh_155mm_AMOS{
+        model = "\A3\Weapons_F\Ammo\Bomb_01_fly_F";
+        submunitionAmmo = "habfuze_155mm_m712";
+        ace_missile_clgp_deployCondition = "HAB_FUZE_fnc_m712deploy";
+            ace_missile_clgp_artilleryDrag = 1;
+        submunitionParentSpeedCoef = 0;
+        submunitionInitSpeed = 150;
+        submunitionDirectionType = "SubmunitionModelDirection";
+        class Eventhandlers {
+            fired = "call ace_missile_clgp_fnc_submunition_ammoFired";
+        };
+
+    };
+
     class habfuze_155mm_m712: Sh_155mm_AMOS
                 {
                     cameraViewAvailable = 1;
@@ -90,7 +104,7 @@ class CfgAmmo{
                     maneuverability = 0;
                     artilleryCharge=0.50999999;
                     airFriction = 0;
-                    sideAirFriction = .2;
+                    sideAirFriction = .3;
                     autoSeekTarget = 0;
                     laserLock = 0;
                     lockType = 0;
@@ -116,8 +130,8 @@ class CfgAmmo{
                     class ace_missileguidance {
                         enabled = 1;
                         canVanillaLock = 0;
-                        pitchRate = 10;
-                        yawRate = 10;
+                        pitchRate = 30;
+                        yawRate = 30;
                         defaultAttackProfile = "DIR";
                         defaultSeekerType = "SALH";
                         seekerTypes[] = { "SALH" };
@@ -138,5 +152,38 @@ class CfgAmmo{
                     };
 
                 };
+    class ammo_Missile_s750;
+    class essm_sparrow: ammo_Missile_s750
+    {
+        maxSpeed = 1372;
+        thrust = 200;
+        flightProfiles[] = {};
+        simulation = "shotMissile";
+        model = "\A3\Weapons_F_Destroyer\Ammo\Missile_Cruise_01_Fly_F";
+        class ace_missileguidance {
+            enabled = 1;
+            canVanillaLock = 1;
+            pitchRate = 75;
+            yawRate = 75;
+            seekLastTargetPos = 1;
+            defaultAttackProfile = "DIR";
+            defaultSeekerType = "DopplerRadar";
+            seekerTypes[] = { "DopplerRadar" };
+            lockableTypes[] = {"Air"};
+            defaultSeekerLockMode = "LOBL";
+            seekerLockModes[] = { "LOBL" };
+
+            defaultNavigationType = "ZeroEffortMiss";
+            navigationTypes[] = { "ZeroEffortMiss" };
+
+            seekLastTargetPos = 1;
+            seekerAngle = 180;
+            seekerAccuracy = 1;
+
+            seekerMinRange = 1;
+            seekerMaxRange = 6000;
+            attackProfiles[] = {"DIR"};
+        };
+};
 };
 

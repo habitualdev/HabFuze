@@ -104,9 +104,11 @@
 	thisgun addEventHandler ["Fired", 
 	{_this spawn {
 			private _thisObject = _this select 0;
+			private _projectile = _this select 6;
 			gunName = getObjectID _thisObject;
 			private _fuze = missionNamespace getVariable gunName;
 			if (_fuze select 0 isEqualTo "IMPACT") then {exit};
+			if (typeOf _projectile != "Sh_82mm_AMOS") then {exit};
 	        if (_fuze select 0 isEqualTo "PROX") then {
 	        	private _thisGun =  _this select 0;
 	        	private _gunPosition = getPosATL _thisGun;

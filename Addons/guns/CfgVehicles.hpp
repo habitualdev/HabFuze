@@ -54,7 +54,9 @@ class CfgVehicles {
 			ace_fcs_Enabled = 1;
 			weapons[] = {"habfuze_weap_m284"};
 				magazines[] = {
-					"habfuze_16Rnd_155mm_M712", "rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP"
+					"rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2",
+					"rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP",
+					"habfuze_32Rnd_155mm_HC", "habfuze_16Rnd_155mm_M712"
 				};
 				lockWhenVehicleSpeed= 5;
 				maxHorizontalRotSpeed = "((360/30)/45)";
@@ -81,8 +83,10 @@ class CfgVehicles {
 			ace_fcs_Enabled = 1;
 			weapons[] = {"habfuze_weap_m284"};
 				magazines[] = {
-					"habfuze_16Rnd_155mm_M712", "rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2", "rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP", "habfuze_32Rnd_155mm_HC"
-				};
+                					"rhs_mag_155mm_m795_28", "rhs_mag_155mm_m825a1_2", "rhs_mag_155mm_485_2", "rhs_mag_155mm_m712_2",
+                					"rhs_mag_155mm_m731_1", "rhs_mag_155mm_raams_1", "rhs_mag_155mm_m864_3", "habfuze_32Rnd_155mm_WP",
+                					"habfuze_32Rnd_155mm_HC", "habfuze_16Rnd_155mm_M712"
+                				};
 				lockWhenVehicleSpeed= 5;
 				maxHorizontalRotSpeed = "((360/30)/45)";
 			};
@@ -184,6 +188,9 @@ class CfgVehicles {
 	};
 	
 	class hab_fuze_NGS01_base: B_Ship_Gun_01_base_F {
+	    class Turrets: Turrets {
+                    class MainTurret: MainTurret {};
+        		};
 	};
 
 	class hab_fuze_NGS01_hammer: hab_fuze_NGS01_base {
@@ -198,6 +205,11 @@ class CfgVehicles {
 		class EventHandlers {
 			init = "_this call HAB_FUZE_fnc_init_naval_fuzes"
 		};
+		class Turrets: Turrets {
+                    class MainTurret: MainTurret {
+                        magazines[] = {"magazine_ShipCannon_120mm_HE_shells_x32","magazine_ShipCannon_120mm_smoke_shells_x6"};
+        	};
+        	};
 	};
 
 	// M119
@@ -240,6 +252,11 @@ class CfgVehicles {
         author = "habitual";
         displayName = "CB Radar (3KM)";
         scopeCurator = 2
+        ace_cargo_size = 4;
+        ace_cargo_canLoad = 1;
+        ace_cargo_noRename = 1;
+        ace_dragging_canCarry = 1;
+        ace_dragging_ignoreWeightCarry = 1;
         class EventHandlers {
             init = "_this call HAB_FUZE_fnc_init_3km_radar"
         };
@@ -254,15 +271,35 @@ class CfgVehicles {
             init = "_this call HAB_FUZE_fnc_init_10km_radar"
         };
     };
-    class B_Ship_MRLS_01_F;
+    class B_Ship_MRLS_01_base_F :StaticMGWeapon {
+    class ACE_SelfActions;
+        class Turrets;
+    };
+    class B_Ship_MRLS_01_F: B_Ship_MRLS_01_base_F {
+        class ACE_SelfActions: ACE_SelfActions {};
+        class Turrets: Turrets {
+            class MainTurret;
+        };
+        class AnimationSources;
+    };
     class habfuze_VLS: B_Ship_MRLS_01_F {
         scope = 2;
         author = "habitual";
         displayName = "VLS (GPS)";
         scopeCurator = 2;
+        side = 1;
+        faction = "BLU_F";
+        crew = "B_UAV_AI";
+        typicalCargo[] = {"B_UAV_AI"};
         class EventHandlers {
             init = "_this call HAB_FUZE_fnc_init_vls"
         };
+        class Turrets: Turrets {
+                    class MainTurret: MainTurret {
+                        weapons[] = {"habfuze_VLS"};
+                        magazines[] = {"magazine_Missiles_Cruise_01_x18","habfuze_ESSM"};
+                    };
+                };
+        class AnimationSources: AnimationSources {};
     };
-
 };

@@ -11,7 +11,7 @@ class CfgWeapons{
     class rhs_weap_m284;
     class habfuze_weap_m284: rhs_weap_m284 {
     ace_laser_canSelect = 1;
-    magazines[] = {"habfuze_16Rnd_155mm_M712", "rhs_mag_155mm_m795_28","rhs_mag_155mm_m825a1_2","rhs_mag_155mm_485_2","rhs_mag_155mm_m712_2","rhs_mag_155mm_m731_1","rhs_mag_155mm_raams_1","rhs_mag_155mm_m864_3","habfuze_32Rnd_155mm_WP", "habfuze_32Rnd_155mm_HC"};
+    magazines[] = {"rhs_mag_155mm_m795_28","rhs_mag_155mm_m825a1_2","rhs_mag_155mm_485_2","rhs_mag_155mm_m712_2","rhs_mag_155mm_m731_1","rhs_mag_155mm_raams_1","rhs_mag_155mm_m864_3","habfuze_32Rnd_155mm_WP", "habfuze_32Rnd_155mm_HC", "habfuze_16Rnd_155mm_M712"};
     };
 
     class RHS_weap_M119;
@@ -46,5 +46,15 @@ class CfgWeapons{
 
     class habfuze_mortar_81mm_proxy: habfuze_mortar_81mm {
         magazineReloadTime = 0.5;
+    };
+
+    class weapon_VLS_01;
+    class habfuze_VLS: weapon_VLS_01 {
+        displayName = "Vertical Launch System";
+        canLock = 2;
+        ace_laser_showHud = 1;
+        magazines[] = {"magazine_Missiles_Cruise_01_x18","habfuze_ESSM"};
+        magazineReloadTime = 10;
+
     };
 };

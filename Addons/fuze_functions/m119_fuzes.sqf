@@ -10,7 +10,7 @@
             _smokegen setPosATL _pos;
             _smokegen setParticleClass "HabFuze_WPLinger_81";
 
-            sleep 45.0;
+            sleep 60.0;
             deletevehicle _smokegen;
         };
 

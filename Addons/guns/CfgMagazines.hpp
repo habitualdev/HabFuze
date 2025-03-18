@@ -29,7 +29,7 @@ class CfgMagazines
         displayNameShort="M712";
         displayNameMFDFormat="M712";
         count=16;
-        ammo="habfuze_155mm_m712";
+        ammo="habfuze_155mm_m712_launch";
     };
     class rhs_mag_m60a2_smoke_4;
     class habfuze_105mm_smoke_12Rnd: rhs_mag_m60a2_smoke_4 {
@@ -52,6 +52,17 @@ class CfgMagazines
         displayNameShort="WP";
         displayNameMFDFormat="WP";
         ammo="HabFuze_A_82mm_SMOKE";
+    };
+    class magazine_Missiles_Cruise_01_x18;
+    class habfuze_ESSM: magazine_Missiles_Cruise_01_x18 {
+        scopeCurator=2;
+        scopeArsenal=2;
+        author="habitual";
+        displayName="ESSM Sparrow";
+        displayNameShort="ESSM";
+        displayNameMFDFormat="ESSM";
+        count=18;
+        ammo="essm_sparrow";
     };
 };
 

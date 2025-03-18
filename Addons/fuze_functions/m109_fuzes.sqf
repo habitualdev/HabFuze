@@ -119,74 +119,57 @@
 	
 	thisgun addEventHandler ["Fired", 
 	{_this spawn {
-			private _thisObject = _this select 0;
-			gunName = getObjectID _thisObject;
+			_gun = _this select 0;
+			_ammo = _this select 4;
+			private _projectile = _this select 6;
+			gunName = getObjectID _gun;
 			private _fuze = missionNamespace getVariable gunName;
-			if (_fuze select 0 isEqualTo "IMPACT") then {exit};
-	        if (_fuze select 0 isEqualTo "PROX") then {
-	        	private _thisGun =  _this select 0;
-	        	private _gunPosition = getPosATL _thisGun;
-	            private _shell = _this select 6;
-	            private _explosionType = "Sh_155mm_AMOS";
-				private _proxDistance = _fuze select 1;
-	            waitUntil {
-	                private _shellPos = getPos _shell;
-	                private _distance = _shellPos distance _gunPosition;
-	                _distance > 100;
-	            };
-	
-	            while {alive _shell} do {
-	                private _shellPos = getPos _shell;
-	                private _shellGroundAlt = getPosATL _shell select 2;
-	
-	                if (_shellGroundAlt <= _proxDistance) then {
-	                    _explosion = _explosionType createVehicle _shellPos;
-	                    "habfuze_155mm" createVehicle _shellPos;
-	                    deleteVehicle _shell;
-	                    deleteVehicle _explosion;
-	                };
-	
-	                sleep 0.01;
-	            };
-	        };
-	        
-	        if (_fuze select 0 isEqualTo "TIMED") then {
-	        	private _shell = _this select 6;
-	        	
-				private _proxDistance = _fuze select 1;
-				sleep _proxDistance;
-				 private _shellPos = getPos _shell;
-				_explosion = explosionType createVehicle _shellPos;
-	            "habfuze_155mm" createVehicle _shellPos;
-	            deleteVehicle _shell;
-	            deleteVehicle _explosion;
-	        
-	        };
-	        
-	    };}];
-	    thisgun addEventHandler ["Fired", {
-                    _ammo = _this select 4;
-                    if ( _ammo == "habfuze_155mm_m712") then {
-                    _mode = _this select 3;
-                    _projectile = _this select 6;
-                    switch (_mode) do {
-                        case "Single1": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .19);
-                        };
-                        case "Single2": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .3);
-                        };
-                        case "Single3": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .48);
-                        };
-                        case "Single4": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply .8);
-                        };
-                        case "Single5": {
-                            _projectile setVelocity (velocity _projectile vectorMultiply 1);
+            if ((typeOf _projectile) isEqualTo "Sh_155mm_AMOS") then {
+            _fuzeName = _fuze select 0;
+            switch (_fuzeName) do {
+                case "IMPACT":{
+                    if (true) exitWith {};
+                    };
+                case "PROX":{
+                    private _thisGun =  _this select 0;
+                    private _gunPosition = getPosATL _thisGun;
+                    private _shell = _this select 6;
+                    private _explosionType = "Sh_155mm_AMOS";
+                    private _proxDistance = _fuze select 1;
+                    waitUntil {
+                        private _shellPos = getPos _shell;
+                        private _distance = _shellPos distance _gunPosition;
+                        _distance > 100;
+                    };
+
+                    while {alive _shell} do {
+                        private _shellPos = getPos _shell;
+                        private _shellGroundAlt = getPosATL _shell select 2;
+
+                        if (_shellGroundAlt <= _proxDistance) then {
+                            _explosion = _explosionType createVehicle _shellPos;
+                            "habfuze_155mm" createVehicle _shellPos;
+                            deleteVehicle _shell;
+                            deleteVehicle _explosion;
                         };
 
+                        sleep 0.01;
                     };
-                    };
-                }];
+                };
+                case "TIMED":{
+                    private _shell = _this select 6;
+                    private _proxDistance = _fuze select 1;
+                    sleep _proxDistance;
+                     private _shellPos = getPos _shell;
+                    _explosion = explosionType createVehicle _shellPos;
+                    "habfuze_155mm" createVehicle _shellPos;
+                    deleteVehicle _shell;
+                    deleteVehicle _explosion;
+
+                };
+
+            };
+            };
+        };
+	    }];
 

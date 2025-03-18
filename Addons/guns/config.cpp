@@ -57,6 +57,14 @@
     };
 };
 
+class Extended_FiredBIS_EventHandlers {
+    class All {
+			class CBR {
+        firedBIS = "_this call HAB_FUZE_fnc_init_cbRadar";
+			};
+    };
+};
+
 
 #include "CfgVehicles.hpp"
 #include "CfgFunctions.hpp"

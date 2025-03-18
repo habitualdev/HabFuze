@@ -29,7 +29,7 @@ radar10km addAction ["Remove Player from Tracked List", {
 
 adjustMarkerAlpha = {
     {
-        if ((markerText _x == "Estimated Origin") ||(markerText _x == "Unk. Shell") || (markerText _x == "Unk. Munition")) then {
+        if ((markerText _x == "Estimated Shell Origin") ||(markerText _x == "Unk. Shell") ||(markerText _x == "Unk. Missile") ||(markerText _x == "Unk. Submunition")|| (markerText _x == "Unk. Munition") || (markerText _x == "Estimated Missile Origin") || (markerText _x == "Estimated Submunition Origin") )  then {
             private _markerPos = getMarkerPos _x;
                 [_x, 0.7] remoteExec ["setMarkerAlphaLocal", trackedPlayers];
         };
@@ -45,7 +45,6 @@ originEstimate = {
     private _time = 0.1;
     private _maxTime = 10;
     private _originPoint = _currentPosition;
-    hint format ["_velocity: %1      _currentPosition: %2", _velocity, _currentPosition];
     for "_time" from 0.1 to _maxTime step 0.1 do {
         private _newPosition = [
             (_currentPosition select 0) - (_velocity select 0 * _time),
@@ -62,26 +61,35 @@ originEstimate = {
     private _markerName = format ["originEstimateMarker_%1", time];
     private _marker = createMarker [_markerName, _originPoint];
     _marker setMarkerType "mil_circle";
-    _marker setMarkerColor "ColorRed";
-    _marker setMarkerText "Estimated Origin";
-    _marker setMarkerSize [.1, .1];
+    if (_currentProjectile isKindOf "ShellBase") then {
+            _marker setMarkerText "Estimated Shell Origin";
+            _marker setMarkerSize [.1, .1];
+            _marker setMarkerColor "ColorRed";
+        };
+
+        if (_currentProjectile isKindOf "MissileBase") then {
+            _marker setMarkerText "Estimated Missile Origin";
+            _marker setMarkerSize [.1, .1];
+            _marker setMarkerColor "ColorBlue";
+        };
+
+        if (_currentProjectile isKindOf "SubmunitionBase") then {
+            _marker setMarkerText "Estimated Submunition Origin";
+            _marker setMarkerSize [.1, .1];
+            _marker setMarkerColor "ColorOrange";
+        };
     _marker setMarkerAlpha 0;
 };
 
 
 
-
+missionNamespace setVariable ["roundsInFlight", []];
 [] spawn {
     while {true} do {
         if (!alive radar10km) exitWith {};
-        _listShell = radar10km nearObjects ["ShellBase", detectionRange];
-        _listRocket = radar10km nearObjects ["SubmunitionBase", detectionRange];
-        _list = _listShell + _listRocket;
-
-
+        _list = missionNamespace getVariable "roundsInFlight";
         {
                         private _markerName = format ["shellInFlightMarker_%1", _x];
-
                         if (!(_markerName in activeMarkers)) then {
                             if (getPos radar10km distance getPos _x < detectionRange) then {
                                 _ins = terrainIntersect [getPos radar10km, getPos _x];
@@ -90,7 +98,18 @@ originEstimate = {
                                     _marker = createMarker [_markerName, getPos _x, 1, objNull];
                                     _marker setMarkerType "mil_triangle";
                                     _marker setMarkerColor "ColorOrange";
-                                    _marker setMarkerText "Unk. Munition";
+                                    if (_x isKindOf "ShellBase") then {
+                                        _marker setMarkerText "Unk. Shell";
+                                        _marker setMarkerColor "ColorOrange";
+                                    };
+                                    if (_x isKindOf "MissileBase") then {
+                                        _marker setMarkerText "Unk. Missile";
+                                        _marker setMarkerColor "ColorRed";
+                                    };
+                                    if (_x isKindOf "SubmunitionBase") then {
+                                        _marker setMarkerText "Unk. Submunition";
+                                        _marker setMarkerColor "ColorOrange";
+                                    };
                                     _marker setMarkerAlpha 0;
 
                                     private _currentProjectile = _x;
@@ -122,7 +141,7 @@ originEstimate = {
 
 removeAllOriginMarkers = {
     {
-        if (markerText _x == "Estimated Origin") then {
+        if ((markerText _x == "Estimated Shell Origin") || (markerText _x == "Estimated Missile Origin") || (markerText _x == "Estimated Submunition Origin"))  then {
             deleteMarker _x;
         };
     } forEach allMapMarkers;

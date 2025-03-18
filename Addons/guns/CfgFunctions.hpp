@@ -36,7 +36,14 @@ class CfgFunctions
             {
                 file="habfuze\AddOns\fuze_functions\vls.sqf";
             };
-
+            class init_cbRadar
+            {
+                file="habfuze\AddOns\fuze_functions\cbRadar.sqf";
+            };
+            class m712deploy
+            {
+                file="habfuze\AddOns\fuze_functions\m712deploy.sqf";
+            };
         };
     };
 };
